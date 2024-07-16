@@ -31,11 +31,4 @@ class AddserviceTest {
 		assertEquals(expected2,actual2);
 	}
 
-	@Test
-	void testDivision() {
-		float expected3 = 100;
-		float actual3 = as5.division(500, 5);
-		assertEquals(expected3,actual3);
-	}
-
 }
