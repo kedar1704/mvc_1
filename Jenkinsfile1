@@ -21,6 +21,10 @@ pipeline {
             steps {
                 sh 'mvn clean test install'
             }
+        stage('jacoco') {
+            steps {
+                sh 'jacoco changeBuildStatus: true, deltaBranchCoverage: '80', deltaClassCoverage: '80', deltaComplexityCoverage: '80', deltaLineCoverage: '80', deltaMethodCoverage: '80''
+            }
         }
     }
 }
