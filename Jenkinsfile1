@@ -24,7 +24,7 @@ pipeline {
           }
         stage('jacoco') {
             steps {
-                jacoco changeBuildStatus: true, maximumMethodCoverage: '100'
+                jacoco buildOverBuild: true, changeBuildStatus: true, deltaClassCoverage: '100', maximumClassCoverage: '100'
             }
         }
     }
