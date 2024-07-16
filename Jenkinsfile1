@@ -24,7 +24,7 @@ pipeline {
           }
         stage('jacoco') {
             steps {
-                sh 'jacoco changeBuildStatus: true, deltaBranchCoverage: '80', deltaClassCoverage: '80', deltaComplexityCoverage: '80', deltaLineCoverage: '80', deltaMethodCoverage: '80''
+                jacoco changeBuildStatus: true, deltaBranchCoverage: '80', deltaClassCoverage: '80', deltaComplexityCoverage: '80', deltaLineCoverage: '80', deltaMethodCoverage: '80'
             }
         }
     }
