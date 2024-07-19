@@ -21,6 +21,11 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/kedar1704/mvc_1.git'
             }
         }
+        stage('Build') {
+            steps {
+                sh 'mvn clean test install'
+            }
+          }
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar') {
@@ -35,10 +40,5 @@ pipeline {
               }
                 }
             }
-        stage('Build') {
-            steps {
-                sh 'mvn clean test install'
-            }
-          }
     }
 }
