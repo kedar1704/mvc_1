@@ -33,5 +33,15 @@ pipeline {
             }
         }
       }
+        stage("Quality gate") {
+            steps {
+                waitForQualityGate abortPipeline: true
+                }
+            }
+        stage("sample stage"){
+            steps {
+                sh 'echo Successfully passed quality gate'
+                }
+            }   
     }
 }
