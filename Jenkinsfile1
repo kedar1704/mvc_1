@@ -9,6 +9,7 @@ pipeline {
 
     environment {
         SONARQUBE_Server = 'sonar'
+    }
 
     stages {
         stage('Clean workspace') {
