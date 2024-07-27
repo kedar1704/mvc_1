@@ -7,15 +7,20 @@ pipeline {
     }
 
     stages {
+        stage('Clean workspace') {
+            steps {
+                cleanWs()
+            }
+        }
         stage('Code download') {
             steps {
-                // Get some code from a GitHub repository
-                git branch: 'main', url: 'https://github.com/Parthrajv/mvc_1.git'
+                git branch: 'main', url: 'https://github.com/kedar1704/mvc_1.git'
             }
         }
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn clean test install'
             }
-            
-        post
+          }
+    }
+}
