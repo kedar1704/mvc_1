@@ -22,15 +22,30 @@ pipeline {
                 sh 'mvn clean test install'
             }
           }
-        stage('Dockerize app') {
+        stage('Wait for Approval') {
             steps {
-                sh 'docker build -t java_app:$BUILD_NUMBER .'
+                script {
+                    // Prompt user for yes/no input
+                    def userInput = input(
+                        message: 'Do you want to continue?',
+                        parameters: [
+                            [$class: 'BooleanParameterDefinition', 
+                             defaultValue: false, 
+                             description: 'Click "Yes" to continue or "No" to abort', 
+                             name: 'Continue']
+                        ]
+                    )
+                    
+                    // Handle user input
+                    if (userInput) {
+                        echo 'Deploying the image to dockerhub'
+                    } else {
+                        echo 'Dont push image. Aborting pipeline.'
+                        currentBuild.result = 'ABORTED'
+                        error('Pipeline aborted by user.')
+                    }
+                }
             }
-          }
-        stage('Docker images') {
-            steps {
-                sh 'docker images'
-            }
-          }
+        }
     }
 }
