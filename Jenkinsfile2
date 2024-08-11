@@ -38,7 +38,7 @@ pipeline {
           }
          stage('run docker image') {
             steps {
-                sh "docker run -d -p 8080:8080 java_app:$BUILD_NUMBER"
+                sh "docker run -d -p 9090:8080 java_app:$BUILD_NUMBER"
             }
           }
         stage('Wait for Approval') {
