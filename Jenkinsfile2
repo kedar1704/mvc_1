@@ -6,6 +6,10 @@ pipeline {
         maven "maven"
     }
 
+    environment {     
+    DOCKERHUB_CREDENTIALS= credentials('dockerhub_login')     
+    } 
+
     stages {
         stage('Clean workspace') {
             steps {
@@ -30,6 +34,11 @@ pipeline {
         stage('Docker images') {
             steps {
                 sh 'docker images'
+            }
+          }
+         stage('run docker image') {
+            steps {
+                sh "docker run -d -p 8080:8080 java_app:$BUILD_NUMBER"
             }
           }
         stage('Wait for Approval') {
@@ -57,7 +66,8 @@ pipeline {
         }
         stage('Push image to dockerhub') {
             steps {
-                echo "Pushing image to dockerhub"
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
+	            echo 'Login Completed'
             }
           }
     }
