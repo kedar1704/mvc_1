@@ -22,10 +22,19 @@ pipeline {
                 sh 'mvn clean test install'
             }
           }
+        stage('Dockerize app') {
+            steps {
+                sh 'docker build -t java_app:$BUILD_NUMBER .'
+            }
+          }
+        stage('Docker images') {
+            steps {
+                sh 'docker images'
+            }
+          }
         stage('Wait for Approval') {
             steps {
                 script {
-                    // Prompt user for yes/no input
                     def userInput = input(
                         message: 'Do you want to continue?',
                         parameters: [
@@ -36,7 +45,6 @@ pipeline {
                         ]
                     )
                     
-                    // Handle user input
                     if (userInput) {
                         echo 'Deploying the image to dockerhub'
                     } else {
