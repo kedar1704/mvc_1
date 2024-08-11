@@ -31,8 +31,8 @@ pipeline {
                         parameters: [
                             [$class: 'BooleanParameterDefinition', 
                              defaultValue: false, 
-                             description: 'Click "Yes" to continue or "No" to abort', 
-                             name: 'Continue']
+                             description: 'Click "Yes" to continue pushing to dockerhub or "No" to abort', 
+                             name: 'Push to dockerhub']
                         ]
                     )
                     
@@ -47,5 +47,10 @@ pipeline {
                 }
             }
         }
+        stage('Push image to dockerhub') {
+            steps {
+                echo "Pushing image to dockerhub"
+            }
+          }
     }
 }
