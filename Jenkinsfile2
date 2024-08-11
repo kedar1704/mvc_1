@@ -28,6 +28,7 @@ pipeline {
           }
         stage('Dockerize app') {
             steps {
+                sh 'pwd'
                 sh 'docker build -t java_app:$BUILD_NUMBER .'
             }
           }
